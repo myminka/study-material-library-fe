@@ -10,12 +10,28 @@ import { StudyMaterialComponent } from './pages/general/study-material/study-mat
 export const routes: Routes = [
     {path: '', component: HomeComponent},
 
-    {path: 'login', component: LoginComponent},
-    {path: 'signup', component: SignupComponent},
+    {
+        path: 'login', component: LoginComponent,
+        loadChildren: () => import('./pages/general/login/login.module')
+            .then(mod => mod.LoginModule)
+    },
+    {
+        path: 'signup', component: SignupComponent,
+        loadChildren: () => import('./pages/general/signup/signup.module')
+            .then(mod => mod.SignupModule)
+    },
+    {
+        path: 'contract', component: ContractComponent,
+        loadChildren: () => import('./pages/general/contract/contract.module')
+            .then(mod => mod.ContractModule)
+    },
+    {
+        path: 'materials', component: StudyMaterialComponent,
+        loadChildren: () => import('./pages/general/study-material/study-material.module')
+            .then(mod => mod.StudyMaterialModule)
+    },
 
     {path: 'about', component: AboutComponent},
-    {path: 'contract', component: ContractComponent},
-    {path: 'materials', component: StudyMaterialComponent},
 
     {path: '**', component: NotFoundComponent}
 ];
