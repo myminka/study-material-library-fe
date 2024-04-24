@@ -10,7 +10,18 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'homes';
-  footerUrl = "instagram.com";
+  title = 'angular home ';
+  footerUrl = "https://instagram.com";
   footerLink = "bntu.by";
+
+  ngOnInit(): void{
+    const navMain = document.getElementById('navbarCollapse');
+    if (navMain) {
+      navMain.onclick = function onClick() {
+        if (navMain) {
+          navMain.classList.remove("show");
+        }
+      }
+    }
+  }
 }
