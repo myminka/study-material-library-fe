@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -14,12 +14,18 @@ export class AppComponent {
   footerUrl = "https://instagram.com";
   footerLink = "bntu.by";
 
+  constructor(
+    @Inject(PLATFORM_ID) private platfortmId: object){
+    }
+
   ngOnInit(): void{
-    const navMain = document.getElementById('navbarCollapse');
-    if (navMain) {
-      navMain.onclick = function onClick() {
-        if (navMain) {
-          navMain.classList.remove("show");
+    if (isPlatformBrowser(this.platfortmId)){
+      const navMain = document.getElementById('navbarCollapse');
+      if (navMain) {
+        navMain.onclick = function onClick() {
+          if (navMain) {
+            navMain.classList.remove("show");
+          }
         }
       }
     }
