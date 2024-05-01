@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const httpOptions = {
+const httpOntions = {
   headers: new HttpHeaders(
     {
       'Content-Type': 'application/json',
@@ -13,11 +13,11 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class SubjectService {
+export class TutorService {
 
   constructor(private http:HttpClient) {}
 
-  getSubjects(url: string): Observable<Object>{
-    return this.http.get(url, httpOptions);
+  getTutors(url: string): Observable<Object>{
+    return this.http.get(url, httpOntions);
   }
 }
