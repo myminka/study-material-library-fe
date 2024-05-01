@@ -32,7 +32,7 @@ export const routes: Routes = [
             .then(mod => mod.StudyMaterialModule)
     },
     {
-        path: 'subject', component: SubjectComponent,
+        path: 'subjects', component: SubjectComponent,
         loadChildren: () => import('./pages/general/subject/subject.module')
             .then(mod => mod.SubjectModule)
     },
