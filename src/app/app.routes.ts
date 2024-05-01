@@ -7,6 +7,7 @@ import { NotFoundComponent } from './pages/general/not-found/not-found.component
 import { StudyMaterialComponent } from './pages/general/study-material/study-material.component';
 import { ContactComponent } from './pages/general/contact/contact.component';
 import { SubjectComponent } from './pages/general/subject/subject.component';
+import { TutorComponent } from './pages/general/tutor/tutor.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -33,6 +34,11 @@ export const routes: Routes = [
     },
     {
         path: 'subjects', component: SubjectComponent,
+        loadChildren: () => import('./pages/general/subject/subject.module')
+            .then(mod => mod.SubjectModule)
+    },
+    {
+        path: 'tutors', component: TutorComponent,
         loadChildren: () => import('./pages/general/subject/subject.module')
             .then(mod => mod.SubjectModule)
     },
