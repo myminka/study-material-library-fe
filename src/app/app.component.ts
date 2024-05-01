@@ -19,6 +19,7 @@ export class AppComponent {
     }
 
   ngOnInit(): void{
+    console.log("asd")
     if (isPlatformBrowser(this.platfortmId)){
       const navMain = document.getElementById('navbarCollapse');
       if (navMain) {

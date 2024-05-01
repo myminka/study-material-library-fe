@@ -6,6 +6,7 @@ import { AboutComponent } from './pages/general/about/about.component';
 import { NotFoundComponent } from './pages/general/not-found/not-found.component';
 import { StudyMaterialComponent } from './pages/general/study-material/study-material.component';
 import { ContactComponent } from './pages/general/contact/contact.component';
+import { SubjectComponent } from './pages/general/subject/subject.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -29,6 +30,11 @@ export const routes: Routes = [
         path: 'materials', component: StudyMaterialComponent,
         loadChildren: () => import('./pages/general/study-material/study-material.module')
             .then(mod => mod.StudyMaterialModule)
+    },
+    {
+        path: 'subject', component: SubjectComponent,
+        loadChildren: () => import('./pages/general/subject/subject.module')
+            .then(mod => mod.SubjectModule)
     },
 
     {path: 'about', component: AboutComponent},
