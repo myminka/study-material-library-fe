@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TutorService } from './tutor.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-tutor',
@@ -9,6 +10,7 @@ import { TutorService } from './tutor.service';
 export class TutorComponent implements OnInit {
   tutors: any;
   loaded: boolean;
+  baseUrl: string = environment.application.baseUrl;
   constructor(
     private TutorService: TutorService){
     this.loaded = false; 
@@ -20,7 +22,7 @@ export class TutorComponent implements OnInit {
 
   getTutors(): void{
     this.loaded = false;
-    this.TutorService.getTutors('https://localhost:7133/api/user')
+    this.TutorService.getTutors(`${this.baseUrl}/user`)
     .subscribe(
       tutors => {
         this.tutors = tutors;

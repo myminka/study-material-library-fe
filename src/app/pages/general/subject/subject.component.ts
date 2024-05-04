@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SubjectService } from './subject.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-subject',
@@ -10,6 +11,7 @@ export class SubjectComponent implements OnInit {
 
   subjects: any;
   loaded: boolean;
+  baseUrl: string = environment.application.baseUrl;
   constructor(
     private SubjectService: SubjectService){
     this.loaded = false
@@ -21,7 +23,7 @@ export class SubjectComponent implements OnInit {
 
   getSubjects(): void {
     this.loaded = false;
-    this.SubjectService.getSubjects('https://localhost:7133/api/subject')
+    this.SubjectService.getSubjects(`${this.baseUrl}/subject`)
       .subscribe(
         subjects => {
           this.subjects = subjects;
