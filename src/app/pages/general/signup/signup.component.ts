@@ -7,6 +7,8 @@ import { environment } from '../../../../environments/environment';
 import { PasswordConfirmationValidatorService } from '../../../services/custom-validators/password-confirmation-validator-service';
 import { RegistrationDtoResponse } from '../../../services/interfaces/user/registrationDtoResponse';
 import { UserRegistrationErrorsListRu } from '../../../services/constants/registration-constants/userRegistrationErrorsRu';
+import { MatDialog } from '@angular/material/dialog';
+import { SignupSuccessDialogComponent } from './signup-success-dialog/signup-success-dialog.component';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +20,9 @@ export class SignupComponent implements OnInit{
   baseUrl: string = environment.application.baseUrl;
   signupResult: any;
 
-  constructor(private authService: SignupService, private passwordValidator: PasswordConfirmationValidatorService){  }
+  constructor(private authService: SignupService,
+     private passwordValidator: PasswordConfirmationValidatorService,
+     private dialog: MatDialog){  }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -68,6 +72,7 @@ export class SignupComponent implements OnInit{
           console.log("next");
           this.signupResult = result;
           console.log(result);
+          const dialogRef = this.dialog.open(SignupSuccessDialogComponent);
         },
         error: (err: HttpErrorResponse) => {
           var ruErrors: string[] = err.error.errors.map((error: string) => UserRegistrationErrorsListRu[error]);
