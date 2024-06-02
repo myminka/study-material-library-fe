@@ -1,9 +1,38 @@
 <div class="container">
-    <div class="row mt-4">
-      <div class="col-md-12 text-right">
-        <button class="btn btn-primary">Добавить учебный материал</button>
-      </div>
+  <div class="row mt-4">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-primary" (click)="toggleForm()">Добавить учебный материал</button>
     </div>
+  </div>
+
+  <div *ngIf="showForm" class="row mt-4">
+    <div class="col-md-12">
+      <form (ngSubmit)="addMaterial()">
+        <div class="form-group">
+          <label for="author">Автор</label>
+          <input type="text" class="form-control" id="author" [(ngModel)]="newMaterial.author" name="author" required>
+        </div>
+        <div class="form-group">
+          <label for="title">Название работы</label>
+          <input type="text" class="form-control" id="title" [(ngModel)]="newMaterial.title" name="title" required>
+        </div>
+        <div class="form-group">
+          <label for="year">Год</label>
+          <input type="number" class="form-control" id="year" [(ngModel)]="newMaterial.year" name="year" required>
+        </div>
+        <div class="form-group">
+          <label for="wordFile">Файл Word</label>
+          <input type="file" class="form-control-file" id="wordFile" (change)="onFileSelected($event, 'word')" accept=".doc,.docx">
+        </div>
+        <div class="form-group">
+          <label for="pdfFile">Файл PDF</label>
+          <input type="file" class="form-control-file" id="pdfFile" (change)="onFileSelected($event, 'pdf')" accept=".pdf">
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+        <button type="button" class="btn btn-secondary" (click)="toggleForm()">Отмена</button>
+      </form>
+    </div>
+  </div>
   
     <div class="row mt-4 align-items-end">
         <div class="col-md-4">

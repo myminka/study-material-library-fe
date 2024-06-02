@@ -39,6 +39,52 @@ export class StudyMaterialComponent {
   filterAuthorValue: string = '';
   filterTitleValue: string = '';
 
+  newMaterial = {
+    author: '',
+    title: '',
+    year: new Date().getFullYear(),
+    wordFile: null,
+    pdfFile: null
+  };
+
+  showForm = false;
+
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
+  onFileSelected(event: any, fileType: string) {
+    const file = event.target.files[0];
+    if (fileType === 'word') {
+      this.newMaterial.wordFile = file;
+    } else if (fileType === 'pdf') {
+      this.newMaterial.pdfFile = file;
+    }
+  }
+
+  addMaterial() {
+    const newId = this.materials.length ? Math.max(...this.materials.map(m => m.id)) + 1 : 1;
+    const materialToAdd = {
+      id: newId,
+      author: this.newMaterial.author,
+      title: this.newMaterial.title,
+      year: this.newMaterial.year
+    };
+
+    this.materials.push(materialToAdd);
+    this.resetNewMaterial();
+    this.toggleForm();
+  }
+
+  resetNewMaterial() {
+    this.newMaterial = {
+      author: '',
+      title: '',
+      year: new Date().getFullYear(),
+      wordFile: null,
+      pdfFile: null
+    };
+  }
   search() {
     console.log("asdfas");
     this.filteredMaterials = this.materials.filter(material =>

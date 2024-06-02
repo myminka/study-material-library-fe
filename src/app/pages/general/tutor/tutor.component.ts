@@ -6,6 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './tutor.component.css'
 })
 export class TutorComponent{
+  newTutor = {
+    surname: '',
+    name: '',
+    patronymic: '',
+    subjects: '',
+    department: ''
+  };
+
+  showForm = false;
   filterSurnameValue: string = '';
 
   tutors = [
@@ -31,24 +40,45 @@ export class TutorComponent{
 
   filteredTutors = [...this.tutors];
   // Метод поиска преподавателя
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
+  addTutor() {
+    const newId = this.tutors.length ? Math.max(...this.tutors.map(t => t.id)) + 1 : 1;
+    const tutorToAdd = {
+      id: newId,
+      surname: this.newTutor.surname,
+      name: this.newTutor.name,
+      patronymic: this.newTutor.patronymic,
+      subjects: this.newTutor.subjects,
+      department: this.newTutor.department
+    };
+
+    this.tutors.push(tutorToAdd);
+    this.filterTutors();
+    this.resetNewTutor();
+    this.toggleForm();
+  }
+
+  resetNewTutor() {
+    this.newTutor = {
+      surname: '',
+      name: '',
+      patronymic: '',
+      subjects: '',
+      department: ''
+    };
+  }
+
   search() {
-    // Преобразовываем значение фильтра в нижний регистр
-    const filterValue = this.filterSurnameValue.toLowerCase().trim();
-  
-    // Если фильтр пустой, то отображаем всех преподавателей
-    if (!filterValue) {
-      this.filteredTutors = this.tutors;
-      return;
-    }
-  
-    // Иначе фильтруем список преподавателей по фамилии
-    this.filteredTutors = this.tutors.filter(tutor => {
-      // Преобразуем фамилию преподавателя в нижний регистр
-      const surname = tutor.surname.toLowerCase();
-  
-      // Проверяем, содержит ли фамилия преподавателя введенное значение фильтра
-      return surname.includes(filterValue);
-    });
+    this.filterTutors();
+  }
+
+  filterTutors() {
+    this.filteredTutors = this.tutors.filter(tutor =>
+      tutor.surname.toLowerCase().includes(this.filterSurnameValue.toLowerCase())
+    );
   }
   // tutors: any;
   // loaded: boolean;

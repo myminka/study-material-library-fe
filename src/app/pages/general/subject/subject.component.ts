@@ -27,17 +27,56 @@ export class SubjectComponent {
 
   filteredSubjects = [...this.subjects];
 
+  newSubject = {
+    name: '',
+    code: '',
+    department: ''
+  };
+
+  showForm = false;
+
   filterNameValue: string = '';
   filterCodeValue: string = '';
   filterDepartmentValue: string = '';
 
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
+  addSubject() {
+    const newId = this.subjects.length ? Math.max(...this.subjects.map(s => s.id)) + 1 : 1;
+    const subjectToAdd = {
+      id: newId,
+      name: this.newSubject.name,
+      code: this.newSubject.code,
+      department: this.newSubject.department
+    };
+
+    this.subjects.push(subjectToAdd);
+    this.filterSubjects();
+    this.resetNewSubject();
+    this.toggleForm();
+  }
+
+  resetNewSubject() {
+    this.newSubject = {
+      name: '',
+      code: '',
+      department: ''
+    };
+  }
+
   search() {
+    this.filterSubjects();
+  }
+
+  filterSubjects() {
     this.filteredSubjects = this.subjects.filter(subject =>
-      (this.filterNameValue ? subject.name.toLowerCase().includes(this.filterNameValue.toLowerCase()) : true) &&
-      (this.filterCodeValue ? subject.code.includes(this.filterCodeValue) : true) &&
-      (this.filterDepartmentValue ? subject.department.toLowerCase().includes(this.filterDepartmentValue.toLowerCase()) : true)
+      subject.name.toLowerCase().includes(this.filterNameValue.toLowerCase()) &&
+      subject.code.toLowerCase().includes(this.filterCodeValue.toLowerCase())
     );
   }
+
   // subjects: any;
   // loaded: boolean;
   // baseUrl: string = environment.application.baseUrl;
