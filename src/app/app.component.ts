@@ -6,7 +6,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterOutlet, MatDialogModule],
+  imports: [CommonModule, RouterLink, RouterOutlet, MatDialogModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

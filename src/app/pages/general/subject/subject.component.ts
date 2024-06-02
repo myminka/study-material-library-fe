@@ -7,33 +7,62 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './subject.component.html',
   styleUrl: './subject.component.css'
 })
-export class SubjectComponent implements OnInit {
+export class SubjectComponent {
 
-  subjects: any;
-  loaded: boolean;
-  baseUrl: string = environment.application.baseUrl;
-  constructor(
-    private SubjectService: SubjectService){
-    this.loaded = false
-  }
+  subjects = [
+    { id: 1, name: 'Введение в программирование', code: '40-0-01', department: 'ПОИСиТ' },
+    { id: 2, name: 'Алгоритмы и структуры данных', code: '40-0-02', department: 'Высшая математика' },
+    { id: 3, name: 'Основы архитектуры компьютера', code: '40-0-03', department: 'РТС' },
+    { id: 4, name: 'Программирование на C++', code: '40-0-04', department: 'ПОИСиТ' },
+    { id: 5, name: 'Web-программирование', code: '40-0-05', department: 'РТС' },
+    { id: 6, name: 'Базы данных и SQL', code: '40-0-06', department: 'ПОИСиТ' },
+    { id: 7, name: 'Алгоритмы машинного обучения', code: '40-0-07', department: 'Высшая математика' },
+    { id: 8, name: 'Основы разработки мобильных приложений', code: '40-0-08', department: 'РТС' },
+    { id: 9, name: 'Функциональное программирование', code: '40-0-09', department: 'ПОИСиТ' },
+    { id: 10, name: 'Тестирование программного обеспечения', code: '40-0-10', department: 'РТС' },
+    { id: 11, name: 'Архитектура программных систем', code: '40-0-11', department: 'ПОИСиТ' },
+    { id: 12, name: 'Программирование на Python', code: '40-0-12', department: 'Высшая математика' },
+    { id: 13, name: 'Основы алгоритмизации', code: '40-0-13', department: 'РТС' }
+  ];
 
-  ngOnInit(): void {
-    this.getSubjects();
-  }
+  filteredSubjects = [...this.subjects];
 
-  getSubjects(): void {
-    this.loaded = false;
-    this.SubjectService.getSubjects(`${this.baseUrl}/subject`)
-      .subscribe(
-        subjects => {
-          this.subjects = subjects;
-          this.loaded = true;
-        }
-      )
-  }
+  filterNameValue: string = '';
+  filterCodeValue: string = '';
+  filterDepartmentValue: string = '';
 
-  resetSubjects(): void {
-    this.subjects = null;
-    this.loaded = true;
+  search() {
+    this.filteredSubjects = this.subjects.filter(subject =>
+      (this.filterNameValue ? subject.name.toLowerCase().includes(this.filterNameValue.toLowerCase()) : true) &&
+      (this.filterCodeValue ? subject.code.includes(this.filterCodeValue) : true) &&
+      (this.filterDepartmentValue ? subject.department.toLowerCase().includes(this.filterDepartmentValue.toLowerCase()) : true)
+    );
   }
+  // subjects: any;
+  // loaded: boolean;
+  // baseUrl: string = environment.application.baseUrl;
+  // constructor(
+  //   private SubjectService: SubjectService){
+  //   this.loaded = false
+  // }
+
+  // ngOnInit(): void {
+  //   this.getSubjects();
+  // }
+
+  // getSubjects(): void {
+  //   this.loaded = false;
+  //   this.SubjectService.getSubjects(`${this.baseUrl}/subject`)
+  //     .subscribe(
+  //       subjects => {
+  //         this.subjects = subjects;
+  //         this.loaded = true;
+  //       }
+  //     )
+  // }
+
+  // resetSubjects(): void {
+  //   this.subjects = null;
+  //   this.loaded = true;
+  // }
 }

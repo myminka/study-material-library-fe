@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { StudyMaterialRoutingModule } from './study-material-routing.module';
 import { StudyMaterialComponent } from './study-material.component';
+import { FormsModule } from '@angular/forms'; 
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { StudyMaterialComponent } from './study-material.component';
   exports: [StudyMaterialComponent],
   imports: [
     CommonModule,
-    StudyMaterialRoutingModule
+    StudyMaterialRoutingModule,
+    FormsModule
   ],
   providers:[]
 })

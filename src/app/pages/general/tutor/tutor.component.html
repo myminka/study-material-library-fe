@@ -1,26 +1,43 @@
-<div class="row pb-4">
-    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-      <div class="row">
-        @if(loaded){
-          <div class="table-responsive httpclient-table blue-gradient">
-            <table class="table table-hover table-striped table-responsive-md">
-              <thead>
-                <tr>
-                  <th scope="col">Фамилия</th>
-                  <th scope="col">Имя</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (tutor of tutors; track tutor.UserId){
-                  <tr>
-                    <td>{{tutor.firstName}}</td>
-                    <td>{{tutor.lastName}}</td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        }
-      </div>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-12 text-right">
+      <!-- Кнопка добавления преподавателя -->
+      <button class="btn btn-primary">Добавить преподавателя</button>
     </div>
   </div>
+
+  <div class="row mt-4 align-items-end">
+    <div class="col-md-4">
+      <!-- Фильтр по фамилии преподавателя -->
+      <label for="surname">Фильтр по фамилии преподавателя:</label>
+      <input type="text" id="surname" class="form-control" placeholder="Введите фамилию преподавателя" [(ngModel)]="filterSurnameValue">
+    </div>
+    <div class="col-md-4">
+      <!-- Кнопка поиска -->
+      <button class="btn btn-primary" (click)="search()">Поиск</button>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Фамилия Имя Отчество</th>
+            <th>Предметы</th>
+            <th>Кафедра</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tutor of filteredTutors">
+            <td>{{ tutor.id }}</td>
+            <td>{{ tutor.surname }} {{ tutor.name }} {{ tutor.patronymic }}</td>
+            <td>{{ tutor.subjects }}</td>
+            <td>{{ tutor.department }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,26 +1,44 @@
-<div class="row pb-4">
-    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-      <div class="row">
-        @if(loaded){
-          <div class="table-responsive httpclient-table blue-gradient">
-            <table class="table table-hover table-striped table-responsive-md">
-              <thead>
-                <tr>
-                  <th scope="col">Предмет</th>
-                  <th scope="col">Описание</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (subject of subjects; track subject){
-                  <tr>
-                    <td>{{subject.name}}</td>
-                    <td>{{subject.description}}</td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        }
-      </div>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-primary">Добавить предмет</button>
     </div>
   </div>
+
+  <div class="row mt-4 align-items-end">
+    <div class="col-md-4">
+      <label for="name">Фильтр по названию предмета:</label>
+      <input type="text" id="name" class="form-control" placeholder="Введите название предмета" [(ngModel)]="filterNameValue">
+    </div>
+    <div class="col-md-4">
+      <label for="code">Фильтр по номеру специальности:</label>
+      <input type="text" id="code" class="form-control" placeholder="Введите номер специальности" [(ngModel)]="filterCodeValue">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="search()">Поиск</button>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Название предмета</th>
+            <th>Номер специальности</th>
+            <th>Кафедра</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let subject of filteredSubjects">
+            <td>{{ subject.id }}</td>
+            <td>{{ subject.name }}</td>
+            <td>{{ subject.code }}</td>
+            <td>{{ subject.department }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,53 @@
-<p>study-material works!</p>
+<div class="container">
+    <div class="row mt-4">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-primary">Добавить учебный материал</button>
+      </div>
+    </div>
+  
+    <div class="row mt-4 align-items-end">
+        <div class="col-md-4">
+          <label for="author">Фильтр по имени автора:</label>
+          <input type="text" id="author" class="form-control" placeholder="Введите имя автора" [(ngModel)]="filterAuthorValue">
+        </div>
+        <div class="col-md-4">
+          <label for="title">Фильтр по названию работы:</label>
+          <input type="text" id="title" class="form-control" placeholder="Введите название работы" [(ngModel)]="filterTitleValue">
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary" (click)="search()">Поиск</button>
+        </div>
+      </div>
+  
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row font-weight-bold">
+              <div class="col-md-1">ID</div>
+              <div class="col-md-3">Автор</div>
+              <div class="col-md-4">Название работы</div>
+              <div class="col-md-1">Год</div>
+              <div class="col-md-1">Скачать Word</div>
+              <div class="col-md-2">Скачать PDF</div>
+            </div>
+          </li>
+          <li class="list-group-item" *ngFor="let material of materials">
+            <div class="row">
+              <div class="col-md-1">{{ material.id }}</div>
+              <div class="col-md-3">{{ material.author }}</div>
+              <div class="col-md-4">{{ material.title }}</div>
+              <div class="col-md-1">{{ material.year }}</div>
+              <div class="col-md-1">
+                <button class="btn btn-success btn-sm" (click)="downloadWord()">Скачать Word</button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-warning btn-sm" (click)="downloadPDF()">Скачать PDF</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

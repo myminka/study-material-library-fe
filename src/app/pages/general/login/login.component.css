@@ -1,0 +1,10 @@
+em.error-message {
+    color: #e71515;
+    font-weight: bold;
+  }
+  .card {
+    margin-top: 10px;
+    background-color: #fff;
+    box-shadow: 1px 1px 1px #cabcbc;
+  }
+  

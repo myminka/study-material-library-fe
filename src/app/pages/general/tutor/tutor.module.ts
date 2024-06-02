@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TutorRoutingModule } from './tutor-routing.module';
-import { SubjectComponent } from '../subject/subject.component';
-import { SubjectService } from '../subject/subject.service';
+import { FormsModule } from '@angular/forms'; 
+import { TutorComponent } from './tutor.component';
 
 
 @NgModule({
   declarations: [
-    SubjectComponent
+    TutorComponent
   ],
   imports: [
     CommonModule,
-    TutorRoutingModule
+    TutorRoutingModule,
+    FormsModule
   ],
   exports: [
-    SubjectComponent,
+    TutorComponent,
   ],
   providers: [
-    SubjectService
   ]
 })
 export class TutorModule { }

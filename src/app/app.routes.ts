@@ -39,8 +39,8 @@ export const routes: Routes = [
     },
     {
         path: 'tutors', component: TutorComponent,
-        loadChildren: () => import('./pages/general/subject/subject.module')
-            .then(mod => mod.SubjectModule)
+        loadChildren: () => import('./pages/general/tutor/tutor.module')
+            .then(mod => mod.TutorModule)
     },
 
     {path: 'about', component: AboutComponent},
