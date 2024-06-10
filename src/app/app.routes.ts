@@ -8,6 +8,7 @@ import { StudyMaterialComponent } from './pages/general/study-material/study-mat
 import { ContactComponent } from './pages/general/contact/contact.component';
 import { SubjectComponent } from './pages/general/subject/subject.component';
 import { TutorComponent } from './pages/general/tutor/tutor.component';
+import { ProgramComponent } from './pages/general/program/program.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -41,6 +42,11 @@ export const routes: Routes = [
         path: 'tutors', component: TutorComponent,
         loadChildren: () => import('./pages/general/tutor/tutor.module')
             .then(mod => mod.TutorModule)
+    },
+    {
+        path: 'programs', component: ProgramComponent,
+        loadChildren: () => import('./pages/general/program/program.module')
+            .then(mod => mod.ProgramModule)
     },
 
     {path: 'about', component: AboutComponent},

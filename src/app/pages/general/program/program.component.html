@@ -1,0 +1,158 @@
+<div class="container">
+    <!-- Кнопка добавления программы -->
+    <div class="row mt-4">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-primary" (click)="toggleForm()">Добавить учебную программу</button>
+      </div>
+    </div>
+  
+    <div class="row mt-4 align-items-end">
+        <div class="col-md-3">
+          <label for="filterSubject">Название программы:</label>
+          <input type="text" id="filterSubject" class="form-control" placeholder="Название программы" [(ngModel)]="filterSubject">
+        </div>
+        <div class="col-md-3">
+          <label for="filterDate">Дата выпуска:</label>
+          <input type="date" id="filterDate" class="form-control" [(ngModel)]="filterDate">
+        </div>
+        <div class="col-md-3">
+          <label for="filterRegNumber">Регистрационный номер:</label>
+          <input type="text" id="filterRegNumber" class="form-control" placeholder="Регистрационный номер" [(ngModel)]="filterRegNumber">
+        </div>
+        <div class="col-md-3">
+          <label for="filterActive">Активность программы:</label>
+          <select id="filterActive" class="form-control" [(ngModel)]="filterActive">
+            <option value="all">Все</option>
+            <option value="active">Активные</option>
+            <option value="inactive">Неактивные</option>
+          </select>
+        </div>
+        <p></p>
+        <div class="col-md-4">
+            <button class="btn btn-primary" (click)="applyFilters()">Применить фильтры</button>
+          </div>
+      </div>
+
+    <!-- Модальное окно для добавления программы -->
+    <div *ngIf="showForm" class="modal fade show d-block" tabindex="-1" role="dialog" aria-labelledby="addProgramModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addProgramModalLabel">Добавить учебную программу</h5>
+            <button type="button" class="close" (click)="toggleForm()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="addProgram()">
+              <div class="form-group">
+                <label for="subjectName">Название программы</label>
+                <input type="text" class="form-control" id="subjectName" [(ngModel)]="newProgram.subjectName" name="subjectName" required>
+              </div>
+              <div class="form-group">
+                <label for="dateIssue">Дата выпуска</label>
+                <input type="date" class="form-control" id="dateIssue" [(ngModel)]="newProgram.dateIssue" name="dateIssue" required>
+              </div>
+              <div class="form-group">
+                <label for="registrationNumber">Регистрационный номер</label>
+                <input type="text" class="form-control" id="registrationNumber" [(ngModel)]="newProgram.registrationNumber" name="registrationNumber" required>
+              </div>
+              <div class="form-group">
+                <label for="createdBy">Создано</label>
+                <input type="text" class="form-control" id="createdBy" [(ngModel)]="newProgram.createdBy" name="createdBy" required>
+              </div>
+              <div class="form-group">
+                <label for="isActive">Активно</label>
+                <input type="checkbox" id="isActive" [(ngModel)]="newProgram.isActive" name="isActive">
+              </div>
+              <div class="form-group">
+                <label for="file">Файл</label>
+                <input type="file" class="form-control" id="file" (change)="onFileChange($event)">
+              </div>
+              <button type="submit" class="btn btn-primary">Добавить</button>
+              <button type="button" class="btn btn-secondary" (click)="toggleForm()">Отмена</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Список программ -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Название программы</th>
+              <th>Дата выпуска</th>
+              <th>Регистрационный номер</th>
+              <th>Активно</th>
+              <th>Файл</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let program of programs">
+              <td (click)="selectProgram(program)">{{ program.id }}</td>
+              <td (click)="selectProgram(program)">{{ program.subjectName }}</td>
+              <td (click)="selectProgram(program)">{{ program.dateIssue }}</td>
+              <td (click)="selectProgram(program)">{{ program.registrationNumber }}</td>
+              <td (click)="selectProgram(program)">{{ program.isActive ? 'Да' : 'Нет' }}</td>
+              <td><button class="btn btn-success btn-sm" (click)="downloadFile(program.fileId)">Скачать</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <!-- Модальное окно для редактирования программы -->
+    <div *ngIf="selectedProgram" class="modal fade show d-block" tabindex="-1" role="dialog" aria-labelledby="editProgramModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProgramModalLabel">Редактировать учебную программу</h5>
+            <button type="button" class="close" (click)="deselectProgram()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="subjectName">Название программы</label>
+                <input type="text" class="form-control" id="subjectName" [(ngModel)]="selectedProgram.subjectName" name="subjectName" required>
+              </div>
+              <div class="form-group">
+                <label for="dateIssue">Дата выпуска</label>
+                <input type="date" class="form-control" id="dateIssue" [(ngModel)]="selectedProgram.dateIssue" name="dateIssue" required>
+              </div>
+              <div class="form-group">
+                <label for="registrationNumber">Регистрационный номер</label>
+                <input type="text" class="form-control" id="registrationNumber" [(ngModel)]="selectedProgram.registrationNumber" name="registrationNumber" required>
+              </div>
+              <div class="form-group">
+                <label for="isApproved">Одобрено</label>
+                <input type="checkbox" id="isApproved" [(ngModel)]="selectedProgram.isApproved" name="isApproved">
+              </div>
+              <div class="form-group">
+                <label for="createdBy">Создано</label>
+                <input type="text" class="form-control" id="createdBy" [(ngModel)]="selectedProgram.createdBy" name="createdBy" required>
+              </div>
+              <div class="form-group">
+                <label for="isActive">Активно</label>
+                <input type="checkbox" id="isActive" [(ngModel)]="selectedProgram.isActive" name="isActive">
+              </div>
+              <div class="form-group">
+                <label for="file">Файл</label>
+                <input type="file" class="form-control" id="file" (change)="onFileChange($event)">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="deselectProgram()">Закрыть</button>
+            <button type="button" class="btn btn-primary" (click)="saveProgram()">Сохранить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
